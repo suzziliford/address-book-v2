@@ -4,9 +4,10 @@
 
 {% block content %}
 
-    <h1 class="text-center" >Welcome to the address book</h1>
-    <h4 class="text-center">Created By: Matty Witney</h4>
-    <p class="text-center">This is a wonderful app that helps you keep track of your addresses</p>
-    </div>
+{% if current_user.is_authenticated %}
+<h1 class="text-center">Welcome Back, {{ current_user.username }}</h1>
+{% else %}
+<h1 class="text-center">Hello world</h1>
+{% endif %}
 
 {% endblock %}

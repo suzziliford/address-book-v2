@@ -12,3 +12,12 @@ class SignUpForm(FlaskForm):
     confirm_pass = PasswordField('Confirm Password', validators=[InputRequired(), EqualTo('password')])
     submit = SubmitField()
 
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    submit = SubmitField()
+
+class PostForm(FlaskForm):
+    address = StringField('Address', validators=[InputRequired()])
+    phone_number = StringField('Phone Number', validators=[InputRequired()])
+    submit = SubmitField()
