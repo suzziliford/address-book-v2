@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import db, login 
+from app import db, login  
 
 
 class User(db.Model, UserMixin):
@@ -41,6 +41,7 @@ def load_user(user_id):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -53,3 +54,13 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"<Post new address, by user {self.id}>"
+
+    def update(self, **kwargs):
+        for key, value, in kwargs.items():
+            if key in {'title', 'body'}:
+                setattr(self, key, value)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
