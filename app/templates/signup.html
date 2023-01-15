@@ -7,11 +7,6 @@
 <form action="" class="bg-white rounded mt-3 p-5" method="post">
     <h1 class = "text-center">Sign Up</h1>
     {{ form.csrf_token}}
-    {{ form.first_name.label }}
-    {{ form.first_name(class='form-control', placeholder='First Name' ) }}
-
-    {{ form.last_name.label }}
-    {{ form.last_name(class='form-control', placeholder='Last Name' ) }}
 
     {{ form.email.label }}
     {{ form.email(class='form-control', placeholder='Enter Email' ) }}

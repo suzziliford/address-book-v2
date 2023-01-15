@@ -6,8 +6,8 @@ from app import db, login
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
+    # first_name = db.Column(db.String(50), nullable=False)
+    # last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
@@ -55,9 +55,9 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post new address, by user {self.id}>"
 
-    def update(self, **kwargs):
-        for key, value, in kwargs.items():
-            if key in {'title', 'body'}:
+    def update(self, addie_dict):
+        for key, value in addie_dict.items():
+            if key in {'title', 'address', 'phone_number'}:
                 setattr(self, key, value)
         db.session.commit()
 

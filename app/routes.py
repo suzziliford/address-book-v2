@@ -10,9 +10,10 @@ def index():
     posts = Post.query.all()
     return render_template('index.html', posts=posts)
 
-@app.route('/posts')
+@app.route('/directory')
 def posts():
-    return 'These are the posts'
+    posts = Post.query.all()
+    return render_template('directory.html', posts=posts)
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -20,25 +21,25 @@ def signup():
     print("FORM DATA:", form.data)
     if form.validate_on_submit():
         print('Form Submitted and Validated!')
-        first_name = form.first_name.data
-        last_name = form.last_name.data
+        # first_name = form.first_name.data
+        # last_name = form.last_name.data
         email = form.email.data
         username = form.username.data
         password = form.password.data
         confirm_pass = form.confirm_pass.data
-        print(first_name, last_name, email, username, password, confirm_pass)
+        print(email, username, password, confirm_pass)
         check_user = User.query.filter( (User.username == username) | (User.email == email)).all()
         if check_user:
             flash('A user with that email already exists', 'danger')
             return redirect(url_for('signup'))
         new_user = User(
-            first_name=first_name, 
-            last_name=last_name, 
+            # first_name=first_name, 
+            # last_name=last_name, 
             email=email, 
             username=username, 
             password=password
             )
-        flash(f'Thank you {new_user.first_name} {new_user.last_name} for signing up!', 'success')
+        flash(f'Thank you {new_user.username} for signing up!', 'success')
         return redirect(url_for('index'))
 
     return render_template('signup.html', form=form)
@@ -82,7 +83,7 @@ def create_new_address():
 
     return render_template('create.html', form=form)
 
-@app.route('/posts/<int:post_id>')
+@app.route('/directory/<int:post_id>')
 def get_post(post_id):
     post = Post.query.get(post_id)
     if not post:
@@ -90,7 +91,7 @@ def get_post(post_id):
         return redirect(url_for('index'))
     return render_template('post.html', post=post)
 
-@app.route('/posts/<post_id>/edit', methods=["GET, POST"])
+@app.route('/directory/edit/<int:post_id>', methods=["GET", "POST"])
 @login_required
 def edit_post(post_id):
     post = Post.query.get(post_id)
@@ -102,15 +103,18 @@ def edit_post(post_id):
         return redirect(url_for('index'))
     form = PostForm()
     if form.validate_on_submit():
-        title = form.title.data
-        address = form.address.data
-        phone_number = form.phone_number.data
-        post.update(title, address, phone_number)
+        addie_dict = {
+        "title" : form.title.data,
+        "address" : form.address.data,
+        "phone_number" : form.phone_number.data
+        }
+        post.update(addie_dict)
         flash(f"{post.title} has been updated!", "success")
         return redirect(url_for('get_post', post_id=post.id))
     if request.method == 'GET':
         form.title.data = post.title
-        form.address.data = post.body
+        form.address.data = post.address
+        form.phone_number.data = post.phone_number
     return render_template('edit_post.html', post=post, form=form)
 
 @app.route('/posts/<post_id>/delete')
