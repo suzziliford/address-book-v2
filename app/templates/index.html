@@ -7,13 +7,15 @@
 {% if current_user.is_authenticated %}
     
     <div class="mt-2 p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
-    <h1 class="text-center">Greetings {{ current_user.username }}!</h1>
-    <div class="p-3">This page is designed to list all the contact info
-        for the members of the MCVA family.
-        Please make sure all your details are up to date
-        by searching your name in the directory</div>
+    <h1 class="text-center text-uppercase"> Greetings {{ current_user.username }}</h1>
+        <div class="text-center font-weight-light p-3">
+            <h4>This page is designed to list the contact info
+                for the members of the MCVA family.
+                <br> Please make sure all your details are up to date
+                by searching your name in the directory</h4>
+        </div>
     
-  </div>
+    </div>
 
 <img src="http://picsum.photos/2500/850" class="card-img-top" alt="placeholder image">
 
@@ -34,3 +36,5 @@
 
 
 {% endblock %}
+
+

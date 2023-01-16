@@ -7,22 +7,20 @@
     <div class="col"> 
         <div class="card my-3" style="width: 80rem;">
             <img src="http://picsum.photos/2500/500" class="card-img-top" alt="placeholder image">
-            <div class="card-body">
+            <div class="card-body text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
                 <h5 class="card-title text-center">{{ post.title }}</h5>
                 <p class="card-text text-center">{{ post.address }}</p>
                 <p class="card-text text-center">{{ post.phone_number }}</p>
                 {% if current_user == post.author %}
-                    <div class="text-center">
-                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Take me there</a>
+                    <div class="text-center my-1">
+                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Edit</a>
                     </div>  
                     <div class="text-center">
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Delete Address
-                    </button>
-                    </div>                      <!-- Button trigger modal -->
-                        
+                        </button>
+                    </div>                     
                     
-                    <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -35,15 +33,16 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger">Delete Post</button>
+                                    <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger">Delete Post</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
 </div>
+
 {% endblock %}
 

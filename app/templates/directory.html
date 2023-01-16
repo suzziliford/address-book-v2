@@ -5,7 +5,9 @@
 {% block content %}
 
 {% if current_user.is_authenticated %}
-    <h1 class="text-center">Welcome Back, {{ current_user.username }}!</h1>
+    <div class="my-1 p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-4">
+        <h1 class="text-center">!DIRECTORY!</h1>
+    </div>
 {% else %}
     <h1 class="text-center">Hello World</h1>
 {% endif %}
@@ -14,18 +16,18 @@
 {% for post in posts %}
 <div class="row">
     <div class="col"> 
-        <div class="card my-3" style="width: 80rem;">
+        <div class="card my-1 rounded-4" style="width: 81rem;">
             <!-- <img src="http://picsum.photos/2500/500" class="card-img-top" alt="placeholder image"> -->
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ post.title }}</h5>
-                <p class="card-text text-center">{{ post.address }}</p>
+            <div class="card-body text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-4">
+                <h3 class="card-title text-center text-uppercase lead">{{ post.title }}</h3>
+                <p class="card-text text-center lead">{{ post.address }}</p>
                 <p class="card-text text-center">{{ post.phone_number }}</p>
                 {% if current_user == post.author %}
-                    <div class="text-center">
-                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Take me there</a>
+                    <div class="text-center my-1">
+                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-light rounded-5">Edit</a>
                     </div>  
                     <div class="text-center">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-light rounded-5" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             Delete Address
                         </button>
                     </div>       
