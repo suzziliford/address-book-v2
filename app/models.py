@@ -53,7 +53,7 @@ class Post(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return f"<Post new address, by user {self.id}>"
+        return f"<Post {self.id} | {self.id}>"
 
     def update(self, addie_dict):
         for key, value in addie_dict.items():
